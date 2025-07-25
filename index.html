@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade de Matemática: Operações com Polinômios</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #e3f0ff 0%, #fff8e1 100%);
+      color: #263238;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 32px 24px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #0002;
+    }
+    h1 {
+      color: #ff6f00;
+      text-align: center;
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #ffd18060;
+    }
+    .instrucoes {
+      margin-bottom: 28px;
+      background: #ffe082;
+      border-left: 5px solid #ff6f00;
+      padding: 16px 18px;
+      border-radius: 8px;
+      font-size: 1.08rem;
+      color: #6d4c00;
+    }
+    .questao {
+      margin-bottom: 36px;
+      padding: 22px 18px 18px 18px;
+      border-radius: 12px;
+      background: #e3f2fd;
+      box-shadow: 0 1px 6px #1976d220;
+      transition: box-shadow 0.2s;
+    }
+    .questao:hover {
+      box-shadow: 0 4px 16px #1976d210;
+    }
+    .enunciado {
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-size: 1.08rem;
+      color: #1976d2;
+    }
+    .alternativas {
+      margin-bottom: 16px;
+    }
+    .alternativa {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 2px solid #b0bec5;
+      background: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      position: relative;
+    }
+    .alternativa.selected {
+      border: 2.5px solid #1976d2;
+      background: #bbdefb;
+    }
+    .alternativa.correta {
+      background: #b9f6ca;
+      border: 2.5px solid #00c853;
+      color: #00695c;
+    }
+    .alternativa.errada {
+      background: #ff8a80;
+      border: 2.5px solid #d50000;
+      color: #b71c1c;
+    }
+    .botoes {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .btn {
+      background: linear-gradient(90deg, #4caf50 60%, #81c784 100%);
+      color: #fff;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 7px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #4caf5030;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn:disabled {
+      background: #b0bec5;
+      color: #fff;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .btn:hover:not(:disabled) {
+      background: linear-gradient(90deg, #388e3c 60%, #66bb6a 100%);
+      box-shadow: 0 4px 16px #4caf5040;
+    }
+    .gabarito {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 7px;
+      font-size: 0.98rem;
+      background: #fff3e0;
+      border: 2px solid #ffb300;
+      color: #e65100;
+      font-weight: 500;
+      box-shadow: 0 2px 8px #ffd18030;
+    }
+    .gabarito .comentario {
+      color: #6d4c00;
+      font-size: 0.97em;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 8px; }
+      .questao { padding: 12px 6px 10px 6px; }
+      .botoes { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Atividade de Matemática: Operações com Polinômios</h1>
+    <div class="instrucoes">
+      <strong>Instruções:</strong> Leia cada questão com atenção, selecione a alternativa correta e clique em <b>Confirmar</b>.<br>
+      Após confirmar, veja a resposta correta e a resolução detalhada da questão.
+    </div>
+    <form id="quizForm" autocomplete="off"></form>
+  </div>
+  <script>
+    const questoes = [
+      {
+        enunciado: '1. Soma de Polinômios<br>Dados os polinômios P(x) = 3x³ + 2x² - 5x + 4 e Q(x) = x³ - 4x² + 7x - 1, calcule P(x) + Q(x).',
+        alternativas: [
+          'a) 4x³ + 6x² + 2x + 3',
+          'b) 4x³ - 2x² + 2x + 3',
+          'c) 4x³ - 2x² + 12x + 3',
+          'd) 2x³ - 2x² + 2x + 5'
+        ],
+        correta: 1,
+        gabarito: 'b) 4x³ - 2x² + 2x + 3',
+        comentario: '<strong>Resolução:</strong><br><br>P(x) + Q(x) = (3x³ + 2x² - 5x + 4) + (x³ - 4x² + 7x - 1)<br><br>Agrupando termos semelhantes:<br>3x³ + x³ + 2x² - 4x² - 5x + 7x + 4 - 1<br><br>Calculando:<br>(3+1)x³ + (2-4)x² + (-5+7)x + (4-1)<br>4x³ - 2x² + 2x + 3'
+      },
+      {
+        enunciado: '2. Soma com Graus Diferentes<br>Dados os polinômios A(y) = 5y⁴ - 2y² + 8 e B(y) = 3y³ + 4y² - 2y - 3, calcule A(y) + B(y).',
+        alternativas: [
+          'a) 5y⁴ + 3y³ + 2y² - 2y + 5',
+          'b) 8y⁴ + 3y³ + 2y² - 2y + 5',
+          'c) 5y⁴ + 3y³ - 6y² - 2y + 5',
+          'd) 5y⁴ + 3y³ + 2y² + 6y + 11'
+        ],
+        correta: 0,
+        gabarito: 'a) 5y⁴ + 3y³ + 2y² - 2y + 5',
+        comentario: '<strong>Resolução:</strong><br><br>A(y) + B(y) = (5y⁴ - 2y² + 8) + (3y³ + 4y² - 2y - 3)<br><br>Agrupando termos semelhantes:<br>5y⁴ + 3y³ - 2y² + 4y² - 2y + 8 - 3<br><br>Calculando:<br>5y⁴ + 3y³ + (-2+4)y² - 2y + (8-3)<br>5y⁴ + 3y³ + 2y² - 2y + 5'
+      },
+      {
+        enunciado: '3. Subtração de Polinômios<br>Dados os polinômios R(z) = 10z² - 6z + 5 e S(z) = -2z² + 4z - 3, calcule R(z) - S(z).',
+        alternativas: [
+          'a) 8z² - 10z + 8',
+          'b) 12z² - 10z + 8',
+          'c) 12z² - 2z + 2',
+          'd) 8z² - 2z + 2'
+        ],
+        correta: 1,
+        gabarito: 'b) 12z² - 10z + 8',
+        comentario: '<strong>Resolução:</strong><br><br>R(z) - S(z) = (10z² - 6z + 5) - (-2z² + 4z - 3)<br><br>Distribuindo o sinal negativo:<br>10z² - 6z + 5 + 2z² - 4z + 3<br><br>Agrupando termos semelhantes:<br>10z² + 2z² - 6z - 4z + 5 + 3<br><br>Calculando:<br>(10+2)z² + (-6-4)z + (5+3)<br>12z² - 10z + 8'
+      },
+      {
+        enunciado: '4. Multiplicação de Monômio por Polinômio<br>Calcule o resultado da seguinte multiplicação: 4x² * (2x³ - 5x + 7).',
+        alternativas: [
+          'a) 8x⁵ - 20x³ + 28x²',
+          'b) 8x⁶ - 20x³ + 28x²',
+          'c) 6x⁵ - 20x³ + 28x²',
+          'd) 8x⁵ - 20x² + 28x'
+        ],
+        correta: 0,
+        gabarito: 'a) 8x⁵ - 20x³ + 28x²',
+        comentario: '<strong>Resolução:</strong><br><br>4x² * (2x³ - 5x + 7)<br><br>Aplicando a propriedade distributiva:<br>(4x² * 2x³) + (4x² * -5x) + (4x² * 7)<br><br>Calculando cada produto:<br>8x⁵ - 20x³ + 28x²'
+      },
+      {
+        enunciado: '5. Multiplicação de Binômios (Binômio por Binômio)<br>Calcule o produto dos seguintes polinômios: (3x + 2) * (x - 5).',
+        alternativas: [
+          'a) 3x² + 13x - 10',
+          'b) 3x² - 13x - 10',
+          'c) 3x² - 17x - 10',
+          'd) 3x² + 17x - 10'
+        ],
+        correta: 1,
+        gabarito: 'b) 3x² - 13x - 10',
+        comentario: '<strong>Resolução:</strong><br><br>(3x + 2) * (x - 5)<br><br>Aplicando a propriedade distributiva:<br>(3x * x) + (3x * -5) + (2 * x) + (2 * -5)<br><br>Calculando cada produto:<br>3x² - 15x + 2x - 10<br><br>Agrupando termos semelhantes:<br>3x² + (-15+2)x - 10<br>3x² - 13x - 10'
+      },
+      {
+        enunciado: '6. Multiplicação de Binômio por Trinômio<br>Expanda a seguinte expressão, calculando o produto: (y - 4) * (y² + 3y - 6).',
+        alternativas: [
+          'a) y³ + y² - 18y + 24',
+          'b) y³ - y² - 18y + 24',
+          'c) y³ - y² + 6y + 24',
+          'd) y³ + y² + 6y + 24'
+        ],
+        correta: 1,
+        gabarito: 'b) y³ - y² - 18y + 24',
+        comentario: '<strong>Resolução:</strong><br><br>(y - 4) * (y² + 3y - 6)<br><br>Aplicando a propriedade distributiva:<br>(y * y²) + (y * 3y) + (y * -6) + (-4 * y²) + (-4 * 3y) + (-4 * -6)<br><br>Calculando cada produto:<br>y³ + 3y² - 6y - 4y² - 12y + 24<br><br>Agrupando termos semelhantes:<br>y³ + 3y² - 4y² - 6y - 12y + 24<br>y³ + (3-4)y² + (-6-12)y + 24<br>y³ - y² - 18y + 24'
+      },
+      {
+        enunciado: '7. Operações Combinadas<br>Dados os polinômios F(x) = 2x - 1, G(x) = 3x + 4 e H(x) = 6x² + 10x - 9, calcule o resultado da expressão: F(x) * G(x) - H(x).',
+        alternativas: [
+          'a) -5x + 5',
+          'b) 5x - 5',
+          'c) -5x - 5',
+          'd) 5x + 5'
+        ],
+        correta: 0,
+        gabarito: 'a) -5x + 5',
+        comentario: '<strong>Resolução:</strong><br><br><strong>Parte 1:</strong> Multiplicação F(x) * G(x)<br>(2x - 1) * (3x + 4)<br><br>Aplicando a propriedade distributiva:<br>6x² + 8x - 3x - 4<br><br>Agrupando termos semelhantes:<br>6x² + 5x - 4<br><br><strong>Parte 2:</strong> Subtração<br>(6x² + 5x - 4) - (6x² + 10x - 9)<br><br>Distribuindo o sinal negativo:<br>6x² + 5x - 4 - 6x² - 10x + 9<br><br>Agrupando termos semelhantes:<br>(6-6)x² + (5-10)x + (-4+9)<br>0x² - 5x + 5<br>-5x + 5'
+      }
+    ];
+
+    function renderQuestoes() {
+      const form = document.getElementById('quizForm');
+      questoes.forEach((q, idx) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'questao';
+        qDiv.id = `questao${idx}`;
+        qDiv.innerHTML = `
+          <div class="enunciado">${q.enunciado}</div>
+          <div class="alternativas">
+            ${q.alternativas.map((alt, i) => `
+              <label class="alternativa" id="q${idx}alt${i}" onclick="selecionarAlternativa(${idx},${i})">
+                <input type="radio" name="q${idx}" value="${i}" style="display:none;">
+                ${alt}
+              </label>
+            `).join('')}
+          </div>
+          <div class="botoes">
+            <button type="button" class="btn" onclick="confirmarQuestao(${idx})" id="btnConfirmar${idx}">Confirmar</button>
+          </div>
+          <div class="gabarito" id="gabarito${idx}"><b>Resposta:</b> ${q.gabarito}<div class="comentario">${q.comentario}</div></div>
+        `;
+        form.appendChild(qDiv);
+      });
+    }
+
+    // Estado das respostas
+    const respostas = Array(questoes.length).fill(null);
+    const selecionadas = Array(questoes.length).fill(null);
+
+    window.selecionarAlternativa = function(qIdx, altIdx) {
+      if (respostas[qIdx] !== null) return; // já respondida
+      selecionadas[qIdx] = altIdx;
+      // Limpa seleção anterior
+      for (let i = 0; i < questoes[qIdx].alternativas.length; i++) {
+        document.getElementById(`q${qIdx}alt${i}`).classList.remove('selected');
+      }
+      document.getElementById(`q${qIdx}alt${altIdx}`).classList.add('selected');
+    };
+
+    window.confirmarQuestao = function(qIdx) {
+      if (respostas[qIdx] !== null) return;
+      if (selecionadas[qIdx] === null) return alert('Selecione uma alternativa!');
+      respostas[qIdx] = selecionadas[qIdx];
+      const correta = questoes[qIdx].correta;
+      // Marca correta/errada
+      for (let i = 0; i < questoes[qIdx].alternativas.length; i++) {
+        const alt = document.getElementById(`q${qIdx}alt${i}`);
+        alt.classList.remove('selected');
+        if (i === correta) alt.classList.add('correta');
+        if (i === respostas[qIdx] && i !== correta) alt.classList.add('errada');
+      }
+      // Mostra gabarito
+      document.getElementById(`gabarito${qIdx}`).style.display = 'block';
+      // Desabilita botão confirmar
+      document.getElementById(`btnConfirmar${qIdx}`).disabled = true;
+    };
+
+    renderQuestoes();
+  </script>
+</body>
+</html>
